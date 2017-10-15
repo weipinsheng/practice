@@ -38,3 +38,43 @@ var number3 = number.lastIndexOf(4);// 5 (从末尾开始数,返回遇到第一�
 var number4 = number.lastIndexOf(3,4); // 2
 
 ```
+
+
+#### 原生AJAX
+
+```
+function ajax(options){
+	options = options || {};
+	options.type = (options.type || "GET").toUpperCase();
+	options.dataType = options.dataType || "json";
+
+	if(window.XMLHttpRequest){
+		var xhr = new XMLHttpRequest();//非IE6
+	}else{
+		var xhr = new ActiveXObject('Microsoft.XMLHttp');// IE6
+	}
+//接收
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			var status = xhr.status;
+			if(status >= 200 && status < 300){
+				options.success && options.success(xhr.responseText,xhr.responseXML);
+			}else{
+				options.fail && options.fail(status); 
+			}
+		}
+	}
+
+	//连接和发送
+
+	if(options.type == "GET") {
+		xhr.open("GET",options.url+"?"+ params,true);
+		xhr.send(null);
+	}else if(options.type == "POST") {
+		xhr.open("POST",options.url,true);
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencode");
+		xhr.send(params);
+	}
+}
+
+```
