@@ -40,14 +40,14 @@ var number4 = number.lastIndexOf(3,4); // 2
 ```
 
 
-#### 原生AJAX
+#### 原生AJAX的封装
 
 ```
 function ajax(options){
 	options = options || {};
 	options.type = (options.type || "GET").toUpperCase();//如果小写转成大写
 	options.dataType = options.dataType || "json";
-
+	var params = params(option.data);
 	if(window.XMLHttpRequest){
 		var xhr = new XMLHttpRequest();//非IE6
 	}else{
@@ -76,11 +76,34 @@ function ajax(options){
 		xhr.send(params);
 	}
 }
-
+//处理参数
 function params(data){
 	var arr = [];
-	
+	for(var name in data){
+		arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+	}
+	return arr.join("&");
 }	
 
 
+```
+
+#### windows上安装mongodb服务
+
+![](1.png);
+
+```
+mongod --logpath E:\mongodb\data\log\mongodb.log --logappend --dbpath E:\mongodb\data\db --directoryperdb --serviceName MongoDB -install
+
+//设置开启windows服务
+```
+
+```
+net start MongoDB
+//启动服务
+```
+
+```
+net stop MongoDB
+//关闭服务
 ```
