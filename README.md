@@ -45,7 +45,7 @@ var number4 = number.lastIndexOf(3,4); // 2
 ```
 function ajax(options){
 	options = options || {};
-	options.type = (options.type || "GET").toUpperCase();
+	options.type = (options.type || "GET").toUpperCase();//如果小写转成大写
 	options.dataType = options.dataType || "json";
 
 	if(window.XMLHttpRequest){
@@ -76,5 +76,11 @@ function ajax(options){
 		xhr.send(params);
 	}
 }
+
+function params(data){
+	var arr = [];
+	
+}	
+
 
 ```
